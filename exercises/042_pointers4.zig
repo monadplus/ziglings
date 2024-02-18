@@ -34,8 +34,6 @@ pub fn main() void {
     std.debug.print("\n", .{});
 }
 
-// This function should take a reference to a u8 value and set it
-// to 5.
 fn makeFive(x: *u8) void {
-    ??? = 5; // fix me!
+    x.* = 5;
 }

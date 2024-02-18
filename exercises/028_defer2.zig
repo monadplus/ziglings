@@ -12,13 +12,10 @@ pub fn main() void {
     std.debug.print("done.\n", .{});
 }
 
-// This function is _supposed_ to print an animal name in parentheses
-// like "(Goat) ", but we somehow need to print the end parenthesis
-// even though this function can return in four different places!
 fn printAnimal(animal: u8) void {
     std.debug.print("(", .{});
 
-    std.debug.print(") ", .{}); // <---- how?!
+    defer std.debug.print(") ", .{});
 
     if (animal == 'g') {
         std.debug.print("Goat", .{});

@@ -31,24 +31,13 @@ const Narcissus = struct {
 pub fn main() void {
     print("Narcissus has room in his heart for:", .{});
 
-    // Last time we examined the Narcissus struct, we had to
-    // manually access each of the three fields. Our 'if'
-    // statement was repeated three times almost verbatim. Yuck!
-    //
-    // Please use an 'inline for' to implement the block below
-    // for each field in the slice 'fields'!
-
     const fields = @typeInfo(Narcissus).Struct.fields;
 
-    ??? {
+    inline for (fields) |field| {
         if (field.type != void) {
             print(" {s}", .{field.name});
         }
     }
-
-    // Once you've got that, go back and take a look at exercise
-    // 065 and compare what you've written to the abomination we
-    // had there!
 
     print(".\n", .{});
 }

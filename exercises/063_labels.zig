@@ -123,15 +123,8 @@ pub fn main() void {
             // can't make this Food. Continue the outer loop.
             if (!found) continue :food_loop;
         }
-
-        // If we get this far, the required ingredients were all
-        // wanted for this Food.
-        //
-        // Please return this Food from the loop.
-        break;
-    };
-    // ^ Oops! We forgot to return Mac & Cheese as the default
-    // Food when the requested ingredients aren't found.
+        break food;
+    } else menu[0];
 
     print("Enjoy your {s}!\n", .{meal.name});
 }

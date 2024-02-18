@@ -12,7 +12,18 @@
 // @typeName(), @hasDecl(), and @hasField() to determine more
 // about the type that has been passed in. All of this logic will
 // be performed entirely at compile time.
-//
+
+// @TypeOf(...) type
+//   |--> type of the result
+// @typeInfo(comptime T: type) std.builtin.Type
+//   |--> type reflection
+// @typeName(T: type) *const [N:0]u8
+//   |--> fully qualified (with parent namespace) type name
+// @hasField(comptime Container: type, comptime name: []const u8) bool
+//   |--> if field inside container (struct, union, or enum) exist
+// @hasDecl():
+//   |--> if function, variable, or constant inside container exist.
+
 const print = @import("std").debug.print;
 
 // Let's define three structs: Duck, RubberDuck, and Duct. Notice
@@ -112,19 +123,9 @@ pub fn main() void {
 // like a duck, then it must be a duck") to determine if the type
 // is a "duck".
 fn isADuck(possible_duck: anytype) bool {
-    // We'll use @hasDecl() to determine if the type has
-    // everything needed to be a "duck".
-    //
-    // In this example, 'has_increment' will be true if type Foo
-    // has an increment() method:
-    //
-    //     const has_increment = @hasDecl(Foo, "increment");
-    //
-    // Please make sure MyType has both waddle() and quack()
-    // methods:
     const MyType = @TypeOf(possible_duck);
-    const walks_like_duck = ???;
-    const quacks_like_duck = ???;
+    const walks_like_duck = @hasDecl(MyType, "waddle");
+    const quacks_like_duck = @hasDecl(MyType, "quack");
 
     const is_duck = walks_like_duck and quacks_like_duck;
 
